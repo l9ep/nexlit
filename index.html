@@ -6,10 +6,10 @@
 <meta name="theme-color" content="#0d0d0f">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="Prism">
-<meta name="description" content="Prism — Web Preview Studio">
-<title>Prism</title>
-<link rel="manifest" href="data:application/json;base64,eyJuYW1lIjoiUHJpc20iLCJzaG9ydF9uYW1lIjoiUHJpc20iLCJzdGFydF91cmwiOiIuIiwiZGlzcGxheSI6InN0YW5kYWxvbmUiLCJiYWNrZ3JvdW5kX2NvbG9yIjoiIzBkMGQwZiIsInRoZW1lX2NvbG9yIjoiIzBkMGQwZiIsImljb25zIjpbeyJzcmMiOiJkYXRhOmltYWdlL3N2Zyt4bWw7YmFzZTY0LFBITjJaeUI0Yld4dWN6MGlhSFIwY0RvdkwzZDNkeTUzTXk1dmNtY3ZNakF3TUM5emRtY2lJSFpwWlhkQ2JWOXVZV3hzUFNKb2RIUndPaTh2WjNaMWJTNWpiMjBpSUhkcFpIUm9QU0kxTUNVaUlHaGxhV2RvZEQwaU5UQWxJaUJtYVd4c1BTSmxiV0ZwYkNJZ2VHMXNibk05SW1oMGRIQTZMeTkzZDNjdWR6TXVibVYwTDI5eVp5OHlNREF3TDNOMlp5SXRNQ0lnY0c5c2FXTTVQU0l3SWlCd2NHOXNBV1E5SWpBaUlITjBZVzVrWVhsa1BTSXhNREFsSWo0OGNtVmpkQ0JtYVd4c1BTSnViMjVsSWlCbWFXeHNMWEo0UFNJeU1pSWdabTl1ZEMxd1lYUm9QU0l5TWlJZ1ptOXVkQzF6ZEhsc1pUMGliV0ZrYjI0Z1kyOXVjM1J5WVhRaUlHbG5hSFE5SWpjeklqNDZMM0psWTNRK1BDOXpkbWMrIiwic2l6ZXMiOiIxMDB4MTAwIiwidHlwZSI6ImltYWdlL3N2Zyt4bWwifV19">
+<meta name="apple-mobile-web-app-title" content="Nexlit">
+<meta name="description" content="Nexlit — Web Preview Studio">
+<title>Nexlit</title>
+<link rel="manifest" href="data:application/json;base64,eyJuYW1lIjogIk5leGxpdCIsICJzaG9ydF9uYW1lIjogIk5leGxpdCIsICJzdGFydF91cmwiOiAiLiIsICJkaXNwbGF5IjogInN0YW5kYWxvbmUiLCAiYmFja2dyb3VuZF9jb2xvciI6ICIjMGQwZDBmIiwgInRoZW1lX2NvbG9yIjogIiMwZDBkMGYiLCAiaWNvbnMiOiBbeyJzcmMiOiAiZGF0YTppbWFnZS9zdmcreG1sO2Jhc2U2NCxQSE4yWnlCNGJXeHVjejBpYUhSMGNEb3ZMM2QzZHk1M015NXZjbWN2TWpBd01DOXpkbWNpSUhacFpYZENiM2c5SWpBZ01DQXhNREFnTVRBd0lqNDhjbVZqZENCM2FXUjBhRDBpTVRBd0lpQm9aV2xuYUhROUlqRXdNQ0lnY25nOUlqSXlJaUJtYVd4c1BTSWpNR1F3WkRCbUlpOCtQSEJoZEdnZ1pEMGlUVEkxSURjeVRESTFJREk0VERReUlESTRURVU0SURVNVREVTRJREk0VERjMUlESTRURGMxSURjeVREVTRJRGN5VERReUlEUXlURFF5SURjeVdpSWdabWxzYkQwaUkyWXlaakZtT0NJdlBqd3ZjM1puUGc9PSIsICJzaXplcyI6ICIxMDB4MTAwIiwgInR5cGUiOiAiaW1hZ2Uvc3ZnK3htbCJ9XX0=">
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
@@ -451,9 +451,9 @@ input,textarea,select{font-family:var(--sans)}
 <nav class="nav">
   <div class="logo">
     <div class="logo-gem">
-      <svg viewBox="0 0 16 16"><path d="M8 1L2 6l6 9 6-9z"/></svg>
+      <svg viewBox="0 0 16 16" fill="currentColor"><path d="M3 13V3h2.5l5 7V3H13v10h-2.5l-5-7v7z"/></svg>
     </div>
-    <span>Prism</span>
+    <span>Nexlit</span>
   </div>
 
   <div class="nav-project" id="nav-proj" onclick="openProjects()" title="Projects">
@@ -714,7 +714,7 @@ input,textarea,select{font-family:var(--sans)}
 
 <script>
 /* ════════════════════════════════════════
-   PRISM — Full Studio JS
+   NEXLIT — Full Studio JS
 ════════════════════════════════════════ */
 
 // ── STATE ──
@@ -728,14 +728,14 @@ const TEMPLATES = [
   {id:'blank',icon:'📄',label:'Blank',code:'<!DOCTYPE html>\n<html lang="en">\n<head>\n  <meta charset="UTF-8">\n  <meta name="viewport" content="width=device-width, initial-scale=1.0">\n  <title>My Page</title>\n  <style>\n    body {\n      font-family: sans-serif;\n      margin: 0;\n      padding: 2rem;\n    }\n  </style>\n</head>\n<body>\n  <h1>Hello World</h1>\n</body>\n</html>'},
   {id:'landing',icon:'🌐',label:'Landing',code:'<!DOCTYPE html>\n<html lang="en">\n<head>\n  <meta charset="UTF-8">\n  <meta name="viewport" content="width=device-width, initial-scale=1.0">\n  <title>Landing Page</title>\n  <style>\n    *{margin:0;padding:0;box-sizing:border-box}\n    body{font-family:system-ui,sans-serif;background:#0a0a0a;color:#f0f0f0;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:2rem}\n    h1{font-size:clamp(2rem,6vw,4rem);font-weight:800;margin-bottom:1rem;background:linear-gradient(135deg,#fff,#888);-webkit-background-clip:text;-webkit-text-fill-color:transparent}\n    p{color:#888;font-size:1.1rem;max-width:500px;line-height:1.7;margin-bottom:2rem}\n    .btn{display:inline-block;background:#fff;color:#000;padding:12px 32px;border-radius:50px;font-weight:700;text-decoration:none;transition:opacity .2s}\n    .btn:hover{opacity:.8}\n  </style>\n</head>\n<body>\n  <h1>Your Big Headline</h1>\n  <p>A short description of what you do and why people should care about it.</p>\n  <a href="#" class="btn">Get Started</a>\n</body>\n</html>'},
   {id:'card',icon:'🃏',label:'Card',code:'<!DOCTYPE html>\n<html>\n<head>\n  <meta charset="UTF-8">\n  <title>Card</title>\n  <style>\n    body{font-family:system-ui,sans-serif;background:#f0f0f0;display:flex;align-items:center;justify-content:center;min-height:100vh;margin:0}\n    .card{background:#fff;border-radius:16px;padding:2rem;max-width:360px;width:90%;box-shadow:0 8px 32px rgba(0,0,0,.1)}\n    .avatar{width:64px;height:64px;border-radius:50%;background:#e0e0e0;margin-bottom:1rem}\n    h2{margin:0 0 .5rem;font-size:1.25rem}\n    p{color:#666;margin:0 0 1.5rem;line-height:1.6}\n    .tags{display:flex;gap:8px;flex-wrap:wrap}\n    .tag{background:#f0f0f0;padding:4px 12px;border-radius:20px;font-size:12px;font-weight:600;color:#444}\n  </style>\n</head>\n<body>\n  <div class="card">\n    <div class="avatar"></div>\n    <h2>Alex Johnson</h2>\n    <p>Full-stack developer who loves building clean, minimal interfaces.</p>\n    <div class="tags"><span class="tag">React</span><span class="tag">TypeScript</span><span class="tag">Design</span></div>\n  </div>\n</body>\n</html>'},
-  {id:'animation',icon:'✨',label:'Animation',code:'<!DOCTYPE html>\n<html>\n<head>\n  <meta charset="UTF-8">\n  <title>Animation</title>\n  <style>\n    *{margin:0;padding:0;box-sizing:border-box}\n    body{background:#000;display:flex;align-items:center;justify-content:center;min-height:100vh;overflow:hidden}\n    .orb{width:200px;height:200px;border-radius:50%;background:conic-gradient(from 0deg,#6366f1,#ec4899,#f59e0b,#10b981,#6366f1);animation:spin 3s linear infinite;filter:blur(0px)}\n    .orb::before{content:\'\';position:absolute;inset:20px;border-radius:50%;background:#000}\n    @keyframes spin{to{transform:rotate(360deg)}}\n    h1{position:absolute;color:#fff;font-family:system-ui;font-size:1.5rem;font-weight:800;letter-spacing:-.5px}\n  </style>\n</head>\n<body>\n  <div style="position:relative;display:flex;align-items:center;justify-content:center">\n    <div class="orb"></div>\n    <h1>Prism</h1>\n  </div>\n</body>\n</html>'},
+  {id:'animation',icon:'✨',label:'Animation',code:'<!DOCTYPE html>\n<html>\n<head>\n  <meta charset="UTF-8">\n  <title>Animation</title>\n  <style>\n    *{margin:0;padding:0;box-sizing:border-box}\n    body{background:#000;display:flex;align-items:center;justify-content:center;min-height:100vh;overflow:hidden}\n    .orb{width:200px;height:200px;border-radius:50%;background:conic-gradient(from 0deg,#6366f1,#ec4899,#f59e0b,#10b981,#6366f1);animation:spin 3s linear infinite;filter:blur(0px)}\n    .orb::before{content:\'\';position:absolute;inset:20px;border-radius:50%;background:#000}\n    @keyframes spin{to{transform:rotate(360deg)}}\n    h1{position:absolute;color:#fff;font-family:system-ui;font-size:1.5rem;font-weight:800;letter-spacing:-.5px}\n  </style>\n</head>\n<body>\n  <div style="position:relative;display:flex;align-items:center;justify-content:center">\n    <div class="orb"></div>\n    <h1>Nexlit</h1>\n  </div>\n</body>\n</html>'},
 ];
 
 // ── PROJECTS (localStorage) ──
 function getProjects() {
-  try { return JSON.parse(localStorage.getItem('prism_projects') || '[]'); } catch { return []; }
+  try { return JSON.parse(localStorage.getItem('nexlit_projects') || '[]'); } catch { return []; }
 }
-function saveProjects(p) { localStorage.setItem('prism_projects', JSON.stringify(p)); }
+function saveProjects(p) { localStorage.setItem('nexlit_projects', JSON.stringify(p)); }
 
 function getCode() { return document.getElementById('code').value; }
 function setCode(v) { document.getElementById('code').value = v; onEdInput(); }
@@ -861,7 +861,7 @@ function run() {
   if (!code) { toast('Nothing to run'); return; }
 
   document.getElementById('pv-empty').style.display = 'none';
-  document.getElementById('url-txt').textContent = 'prism://preview';
+  document.getElementById('url-txt').textContent = 'nexlit://preview';
   errCount = 0; updateBadge();
 
   const bridge = `<script>(function(){
@@ -999,7 +999,7 @@ function downloadCode() {
   const b = new Blob([v], {type:'text/html'});
   const a = document.createElement('a');
   a.href = URL.createObjectURL(b);
-  a.download = (currentProject?.name || 'prism') + '.html';
+  a.download = (currentProject?.name || 'nexlit') + '.html';
   a.click();
   toast('Exported');
 }
@@ -1135,7 +1135,7 @@ function loadSettingsUI() {
   document.getElementById('sel-tab').value = settings.tab;
   document.getElementById('tog-ar').checked = settings.ar;
 }
-function saveSettings() { localStorage.setItem('prism_settings', JSON.stringify(settings)); }
+function saveSettings() { localStorage.setItem('nexlit_settings', JSON.stringify(settings)); }
 function applyTheme() {
   settings.theme = document.getElementById('tog-theme').checked ? 'light' : 'dark';
   document.documentElement.setAttribute('data-theme', settings.theme);
@@ -1175,7 +1175,7 @@ document.getElementById('code').addEventListener('paste', () => {
 // ── PWA SERVICE WORKER ──
 if ('serviceWorker' in navigator) {
   const swCode = `
-    const CACHE='prism-v1';
+    const CACHE='nexlit-v1';
     self.addEventListener('install',e=>{self.skipWaiting()});
     self.addEventListener('fetch',e=>{e.respondWith(fetch(e.request).catch(()=>caches.match(e.request)))});
   `;
@@ -1188,7 +1188,7 @@ if ('serviceWorker' in navigator) {
 (function init() {
   // Load settings
   try {
-    const s = JSON.parse(localStorage.getItem('prism_settings') || '{}');
+    const s = JSON.parse(localStorage.getItem('nexlit_settings') || '{}');
     Object.assign(settings, s);
   } catch {}
   document.documentElement.setAttribute('data-theme', settings.theme);
@@ -1204,7 +1204,7 @@ if ('serviceWorker' in navigator) {
     if (ps[0].code) run();
   }
 
-  conLog('in', 'Prism ready. Ctrl+Enter to run, Ctrl+S to save.');
+  conLog('in', 'Nexlit ready. Ctrl+Enter to run, Ctrl+S to save.');
   setMsg('Ready');
   onEdInput();
 })();
