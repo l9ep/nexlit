@@ -68,12 +68,8 @@ input,textarea,select{font-family:var(--sans)}
   font-size:16px;font-weight:700;letter-spacing:-.4px;
   color:var(--text);white-space:nowrap;
 }
-.logo-gem{
-  width:30px;height:30px;border-radius:8px;
-  background:var(--text);
-  display:flex;align-items:center;justify-content:center;flex-shrink:0;
-}
-.logo-gem svg{width:16px;height:16px;fill:var(--bg)}
+.logo-mark{flex-shrink:0;display:flex;align-items:center;justify-content:center}
+.logo-text{font-size:15px;font-weight:700;letter-spacing:-.3px;color:var(--text)}
 
 .nav-project{
   display:flex;align-items:center;gap:6px;
@@ -450,10 +446,13 @@ input,textarea,select{font-family:var(--sans)}
 <!-- NAV -->
 <nav class="nav">
   <div class="logo">
-    <div class="logo-gem">
-      <svg viewBox="0 0 16 16" fill="currentColor"><path d="M3 13V3h2.5l5 7V3H13v10h-2.5l-5-7v7z"/></svg>
+    <div class="logo-mark">
+      <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect width="28" height="28" rx="7" fill="var(--text)"/>
+        <path d="M7 20V8h3l7 9V8h3v12h-3L10 11v9z" fill="var(--bg)"/>
+      </svg>
     </div>
-    <span>Nexlit</span>
+    <span class="logo-text">Nexlit</span>
   </div>
 
   <div class="nav-project" id="nav-proj" onclick="openProjects()" title="Projects">
@@ -473,6 +472,9 @@ input,textarea,select{font-family:var(--sans)}
     </button>
     <button class="ib" onclick="openSettings()" title="Settings">
       <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="8" cy="8" r="2.5"/><path d="M8 1v2M8 13v2M1 8h2M13 8h2M3.2 3.2l1.4 1.4M11.4 11.4l1.4 1.4M3.2 12.8l1.4-1.4M11.4 4.6l1.4-1.4"/></svg>
+    </button>
+    <button class="ib" id="install-btn" onclick="installPWA()" title="Install App" style="display:none">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="12" height="12" rx="2"/><path d="M8 5v5M5 8l3 3 3-3"/></svg>
     </button>
     <div style="width:1px;height:18px;background:var(--border);margin:0 2px"></div>
     <button class="run-btn" onclick="run()" title="Run (Ctrl+Enter)">
@@ -507,9 +509,6 @@ input,textarea,select{font-family:var(--sans)}
       <span class="panel-label">Editor</span>
       <div class="ph-right">
         <span id="ed-lang" style="font-family:var(--mono);font-size:10px;color:var(--text3);padding:2px 7px;background:var(--s3);border-radius:4px">HTML</span>
-        <button class="ib" onclick="formatCode()" title="Format code">
-          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 4h12M2 8h7M2 12h9"/></svg>
-        </button>
         <button class="ib" onclick="copyCode()" title="Copy code">
           <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="5" y="5" width="8" height="8" rx="1.5"/><path d="M3 11V3h8"/></svg>
         </button>
@@ -604,8 +603,7 @@ input,textarea,select{font-family:var(--sans)}
 <div class="toast" id="toast"></div>
 
 <!-- ── PROJECTS MODAL ── -->
-<div class="modal-bg" id="m-projects" onclick="closeModal('m-projects',event)">
-  <div class="modal">
+<div class="modal-bg" id="m-projects" onclick="closeModal('m-projects',event)"><div class="modal" style="position:relative" onclick="event.stopPropagation()">
     <div class="modal-head">
       <div class="modal-title">Projects</div>
       <button class="modal-x" onclick="closeModal('m-projects')">×</button>
@@ -619,8 +617,19 @@ input,textarea,select{font-family:var(--sans)}
       </div>
       <div class="proj-list" id="proj-list"></div>
     </div>
+    <!-- Rename modal nested -->
+    <div id="rename-overlay" style="display:none;position:absolute;inset:0;background:rgba(0,0,0,.5);border-radius:14px;align-items:center;justify-content:center;z-index:10">
+      <div style="background:var(--s2);border:1px solid var(--border2);border-radius:10px;padding:18px;width:260px">
+        <div style="font-size:13px;font-weight:700;margin-bottom:12px">Rename Project</div>
+        <input class="form-input" id="rename-input" placeholder="Project name" style="margin-bottom:12px" onkeydown="if(event.key==='Enter')confirmRename();if(event.key==='Escape')closeRename()">
+        <div style="display:flex;gap:8px;justify-content:flex-end">
+          <button class="btn btn-ghost" onclick="closeRename()">Cancel</button>
+          <button class="btn btn-primary" onclick="confirmRename()">Save</button>
+        </div>
+      </div>
+    </div>
   </div>
-</div>
+</div></div>
 
 <!-- ── NEW PROJECT MODAL ── -->
 <div class="modal-bg" id="m-new" onclick="closeModal('m-new',event)">
@@ -633,10 +642,6 @@ input,textarea,select{font-family:var(--sans)}
       <div class="form-field">
         <label class="form-label">Project Name</label>
         <input class="form-input" id="new-name" placeholder="My Website" onkeydown="if(event.key==='Enter')createProject()">
-      </div>
-      <div class="form-field">
-        <label class="form-label">Start with template</label>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px" id="tpl-grid"></div>
       </div>
     </div>
     <div class="modal-footer">
@@ -722,14 +727,7 @@ let currentProject = null;
 let errCount = 0;
 let autoRunTimer;
 let settings = {theme:'dark',fs:'13',wrap:false,tab:2,ar:false,delay:2000};
-
-// ── TEMPLATES ──
-const TEMPLATES = [
-  {id:'blank',icon:'📄',label:'Blank',code:'<!DOCTYPE html>\n<html lang="en">\n<head>\n  <meta charset="UTF-8">\n  <meta name="viewport" content="width=device-width, initial-scale=1.0">\n  <title>My Page</title>\n  <style>\n    body {\n      font-family: sans-serif;\n      margin: 0;\n      padding: 2rem;\n    }\n  </style>\n</head>\n<body>\n  <h1>Hello World</h1>\n</body>\n</html>'},
-  {id:'landing',icon:'🌐',label:'Landing',code:'<!DOCTYPE html>\n<html lang="en">\n<head>\n  <meta charset="UTF-8">\n  <meta name="viewport" content="width=device-width, initial-scale=1.0">\n  <title>Landing Page</title>\n  <style>\n    *{margin:0;padding:0;box-sizing:border-box}\n    body{font-family:system-ui,sans-serif;background:#0a0a0a;color:#f0f0f0;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:2rem}\n    h1{font-size:clamp(2rem,6vw,4rem);font-weight:800;margin-bottom:1rem;background:linear-gradient(135deg,#fff,#888);-webkit-background-clip:text;-webkit-text-fill-color:transparent}\n    p{color:#888;font-size:1.1rem;max-width:500px;line-height:1.7;margin-bottom:2rem}\n    .btn{display:inline-block;background:#fff;color:#000;padding:12px 32px;border-radius:50px;font-weight:700;text-decoration:none;transition:opacity .2s}\n    .btn:hover{opacity:.8}\n  </style>\n</head>\n<body>\n  <h1>Your Big Headline</h1>\n  <p>A short description of what you do and why people should care about it.</p>\n  <a href="#" class="btn">Get Started</a>\n</body>\n</html>'},
-  {id:'card',icon:'🃏',label:'Card',code:'<!DOCTYPE html>\n<html>\n<head>\n  <meta charset="UTF-8">\n  <title>Card</title>\n  <style>\n    body{font-family:system-ui,sans-serif;background:#f0f0f0;display:flex;align-items:center;justify-content:center;min-height:100vh;margin:0}\n    .card{background:#fff;border-radius:16px;padding:2rem;max-width:360px;width:90%;box-shadow:0 8px 32px rgba(0,0,0,.1)}\n    .avatar{width:64px;height:64px;border-radius:50%;background:#e0e0e0;margin-bottom:1rem}\n    h2{margin:0 0 .5rem;font-size:1.25rem}\n    p{color:#666;margin:0 0 1.5rem;line-height:1.6}\n    .tags{display:flex;gap:8px;flex-wrap:wrap}\n    .tag{background:#f0f0f0;padding:4px 12px;border-radius:20px;font-size:12px;font-weight:600;color:#444}\n  </style>\n</head>\n<body>\n  <div class="card">\n    <div class="avatar"></div>\n    <h2>Alex Johnson</h2>\n    <p>Full-stack developer who loves building clean, minimal interfaces.</p>\n    <div class="tags"><span class="tag">React</span><span class="tag">TypeScript</span><span class="tag">Design</span></div>\n  </div>\n</body>\n</html>'},
-  {id:'animation',icon:'✨',label:'Animation',code:'<!DOCTYPE html>\n<html>\n<head>\n  <meta charset="UTF-8">\n  <title>Animation</title>\n  <style>\n    *{margin:0;padding:0;box-sizing:border-box}\n    body{background:#000;display:flex;align-items:center;justify-content:center;min-height:100vh;overflow:hidden}\n    .orb{width:200px;height:200px;border-radius:50%;background:conic-gradient(from 0deg,#6366f1,#ec4899,#f59e0b,#10b981,#6366f1);animation:spin 3s linear infinite;filter:blur(0px)}\n    .orb::before{content:\'\';position:absolute;inset:20px;border-radius:50%;background:#000}\n    @keyframes spin{to{transform:rotate(360deg)}}\n    h1{position:absolute;color:#fff;font-family:system-ui;font-size:1.5rem;font-weight:800;letter-spacing:-.5px}\n  </style>\n</head>\n<body>\n  <div style="position:relative;display:flex;align-items:center;justify-content:center">\n    <div class="orb"></div>\n    <h1>Nexlit</h1>\n  </div>\n</body>\n</html>'},
-];
+let renamingId = null;
 
 // ── PROJECTS (localStorage) ──
 function getProjects() {
@@ -740,15 +738,17 @@ function saveProjects(p) { localStorage.setItem('nexlit_projects', JSON.stringif
 function getCode() { return document.getElementById('code').value; }
 function setCode(v) { document.getElementById('code').value = v; onEdInput(); }
 
+// FIXED SAVE — always saves current code into current project
 function saveProject() {
   if (!currentProject) { openNewModal(); return; }
+  const code = getCode();
   const ps = getProjects();
   const i = ps.findIndex(p => p.id === currentProject.id);
-  const updated = {...currentProject, code: getCode(), updated: Date.now()};
+  const updated = {...currentProject, code, updated: Date.now()};
   if (i >= 0) ps[i] = updated; else ps.unshift(updated);
   saveProjects(ps);
   currentProject = updated;
-  toast('Saved');
+  toast('✓ Saved');
 }
 
 function loadProject(p) {
@@ -774,6 +774,42 @@ function deleteProject(id, e) {
   toast('Deleted');
 }
 
+// RENAME functions
+function openRename(id, currentName, e) {
+  e.stopPropagation();
+  renamingId = id;
+  const inp = document.getElementById('rename-input');
+  inp.value = currentName;
+  const overlay = document.getElementById('rename-overlay');
+  overlay.style.display = 'flex';
+  setTimeout(() => { inp.focus(); inp.select(); }, 50);
+}
+
+function closeRename() {
+  document.getElementById('rename-overlay').style.display = 'none';
+  renamingId = null;
+}
+
+function confirmRename() {
+  if (!renamingId) return;
+  const newName = document.getElementById('rename-input').value.trim();
+  if (!newName) return;
+  const ps = getProjects();
+  const i = ps.findIndex(p => p.id === renamingId);
+  if (i >= 0) {
+    ps[i].name = newName;
+    ps[i].updated = Date.now();
+    saveProjects(ps);
+    if (currentProject?.id === renamingId) {
+      currentProject.name = newName;
+      document.getElementById('nav-proj-name').textContent = newName;
+    }
+  }
+  closeRename();
+  renderProjects();
+  toast('Renamed');
+}
+
 function renderProjects() {
   const ps = getProjects();
   const el = document.getElementById('proj-list');
@@ -788,9 +824,14 @@ function renderProjects() {
         <div class="proj-name">${esc(p.name)}</div>
         <div class="proj-meta">${fmtDate(p.updated||p.created)}</div>
       </div>
-      <button class="proj-del" onclick="deleteProject('${p.id}',event)" title="Delete">
-        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 4h10M6 4V2h4v2M5 4l.5 9h5l.5-9"/></svg>
-      </button>
+      <div style="display:flex;gap:3px;flex-shrink:0">
+        <button class="proj-del" onclick="openRename('${p.id}','${p.name.replace(/'/g,"\\'")}',event)" title="Rename" style="color:var(--text3)">
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M11 2l3 3-8 8H3v-3L11 2z"/></svg>
+        </button>
+        <button class="proj-del" onclick="deleteProject('${p.id}',event)" title="Delete">
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 4h10M6 4V2h4v2M5 4l.5 9h5l.5-9"/></svg>
+        </button>
+      </div>
     </div>
   `).join('');
 }
@@ -812,39 +853,18 @@ function newProject() { closeModal('m-projects'); openNewModal(); }
 
 function openNewModal() {
   document.getElementById('new-name').value = '';
-  renderTemplates();
   openModal('m-new');
   setTimeout(() => document.getElementById('new-name').focus(), 100);
 }
 
-let selectedTpl = 'blank';
-function renderTemplates() {
-  selectedTpl = 'blank';
-  document.getElementById('tpl-grid').innerHTML = TEMPLATES.map(t => `
-    <div id="tpl-${t.id}" onclick="selectTpl('${t.id}')"
-      style="padding:10px;border-radius:8px;border:2px solid var(--border);cursor:pointer;text-align:center;transition:all .15s;background:var(--s3)${t.id==='blank'?';border-color:var(--border2)':''}">
-      <div style="font-size:20px;margin-bottom:4px">${t.icon}</div>
-      <div style="font-size:12px;font-weight:600;color:var(--text2)">${t.label}</div>
-    </div>
-  `).join('');
-}
-
-function selectTpl(id) {
-  selectedTpl = id;
-  TEMPLATES.forEach(t => {
-    const el = document.getElementById('tpl-'+t.id);
-    if (el) el.style.borderColor = t.id === id ? 'var(--border2)' : 'var(--border)';
-  });
-}
-
+// SIMPLIFIED createProject — no templates
 function createProject() {
   const name = document.getElementById('new-name').value.trim() || 'Untitled';
-  const tpl = TEMPLATES.find(t => t.id === selectedTpl) || TEMPLATES[0];
   const proj = {
     id: 'p_' + Date.now(),
     name,
-    icon: tpl.icon,
-    code: tpl.code,
+    icon: '📄',
+    code: '',
     created: Date.now(),
     updated: Date.now()
   };
@@ -1004,30 +1024,7 @@ function downloadCode() {
   toast('Exported');
 }
 
-function formatCode() {
-  const ta = document.getElementById('code');
-  let code = ta.value;
-  if (!code.trim()) { toast('Nothing to format'); return; }
-  try {
-    let depth = 0;
-    const voids = new Set(['area','base','br','col','embed','hr','img','input','link','meta','param','source','track','wbr']);
-    const lines = code.split('\n');
-    const result = lines.map(raw => {
-      let line = raw.trim();
-      if (!line) return '';
-      const isClose = /^<\//.test(line);
-      const isSelfClose = /\/>$/.test(line) || voids.has((line.match(/^<(\w+)/)||[])[1]||'');
-      const isOpen = /^<[^/!]/.test(line) && !isSelfClose;
-      if (isClose) depth = Math.max(0, depth - 1);
-      const out = '  '.repeat(depth) + line;
-      if (isOpen) depth++;
-      return out;
-    });
-    ta.value = result.join('\n');
-    onEdInput();
-    toast('Formatted');
-  } catch { toast('Could not format'); }
-}
+
 
 function loadFile(e) {
   const f = e.target.files[0];
@@ -1164,7 +1161,7 @@ function esc(s) { return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').re
 document.addEventListener('keydown', e => {
   if ((e.ctrlKey||e.metaKey) && e.key==='Enter') run();
   if ((e.ctrlKey||e.metaKey) && e.key==='s') { e.preventDefault(); saveProject(); }
-  if (e.key==='Escape') ['m-projects','m-new','m-settings'].forEach(id => document.getElementById(id).classList.remove('on'));
+  if (e.key==='Escape') { ['m-projects','m-new','m-settings'].forEach(id => document.getElementById(id).classList.remove('on')); closeRename(); }
 });
 
 // ── PASTE AUTO-RUN ──
@@ -1172,16 +1169,21 @@ document.getElementById('code').addEventListener('paste', () => {
   setTimeout(() => { onEdInput(); if (document.getElementById('tog-ar')?.checked) run(); }, 100);
 });
 
-// ── PWA SERVICE WORKER ──
-if ('serviceWorker' in navigator) {
-  const swCode = `
-    const CACHE='nexlit-v1';
-    self.addEventListener('install',e=>{self.skipWaiting()});
-    self.addEventListener('fetch',e=>{e.respondWith(fetch(e.request).catch(()=>caches.match(e.request)))});
-  `;
-  const blob = new Blob([swCode], {type:'text/javascript'});
-  const url = URL.createObjectURL(blob);
-  navigator.serviceWorker.register(url).catch(()=>{});
+// ── PWA INSTALL PROMPT ──
+let deferredPrompt;
+window.addEventListener('beforeinstallprompt', e => {
+  e.preventDefault();
+  deferredPrompt = e;
+  // Show install button if available
+  const btn = document.getElementById('install-btn');
+  if (btn) btn.style.display = 'flex';
+});
+window.addEventListener('appinstalled', () => {
+  deferredPrompt = null;
+  toast('Nexlit installed!');
+});
+function installPWA() {
+  if (deferredPrompt) { deferredPrompt.prompt(); }
 }
 
 // ── INIT ──
